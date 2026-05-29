@@ -11,3 +11,7 @@
 5/ centering around the center of mass gmx trjconv -s pthrp.tpr -f  trj_nojump.xtc  -o trj_center.xtc -pbc mol -center -ur compact -n index.ndx   21 0  
 
 6/ visualize : vmd *.parm7  *.xtc ( always)
+
+
+ATTENTION :  try to not use stride ( 1/10 frames eg.) when centering ( a lots of problemes then)
+instead , at the end you can pass them via cpptraj to do stride , stripping of water, lipids, ions ( using strip.sh)
