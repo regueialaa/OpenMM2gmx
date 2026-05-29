@@ -16,66 +16,58 @@ This repository provides a workflow to:
 - treating the the trajectory with no jump and center options around a selection of residues (eg. Center of mass of the protein)
 
 ---
+## Installation
 
 ```bash
-python3 ../test.py  --top step5_input.parm7 --xml gs_explicit_prod_final.xml --mdp ../file.mdp --sim_name test --traj gs_explicit_prod.dcd  --center_res "COM" --save_mode 0
+pip install -r requirements.txt
+```
+
+Make sure you have GROMACS installed and available in your `PATH` (e.g. `gmx trjconv`, `gmx make_ndx`).
+To install it  , please refer to official guide : https://manual.gromacs.org/current/install-guide/index.html
+
+## Usage
+
+Run the script from the command line with the following arguments:
+
+```bash
+python your_script.py \
+  --top topfile.parm7 \
+  --xml system.xml \
+  --traj traj1.dcd traj2.dcd \
+  --mdp simulation.mdp \
+  --center_res COM \
+  --sim_name my_simulation \
+  --stride 1 \
+  --save_mode 0 \
+  --output_dir MD_output
 ```
 
 
+## Command-Line Arguments
 
-## 1. Generate `.gro` , `.top ` and `.tpr` files
+--top (required)
+Input topology file (e.g. parm7)
 
-Using parmed_converter.py script to generate `.gro` and `.top` files from: - a topology file (eg an amber topology .parm7 file) - OpenMM coordinates/system information (last XML file from the production run)
+--xml (required)
+OpenMM coordinates/system XML file from the production run
 
-```bash
-python3 parmed_converter.py
-```
+--traj (required)
+One or more OpenMM trajectory files (e.g. traj.dcd or traj_part1.dcd traj_part2.dcd ...). You can pass multiple files.
 
-Then;
+--mdp (required)
+Input GROMACS .mdp file
 
-```bash
-gmx grompp -f file.mdp -c structure.gro -p topology.top -o system.tpr
-```
+--center_res (required)
+Residue(s) used to center the simulation. Use COM to center on the protein center of mass. Use residue ranges like 10-50, single residues like 10, or multiple residues/ranges like 10 20 30 or 10-20 30-40. Examples: --center_res COM, --center_res 10-50, --center_res 10 20 30
 
-## 2. Convert the trajectory (`.dcd` → `.xtc`)
+--sim_name (required)
+Name of the simulation/replica (used in output filenames and logs)
 
-Convert an openmm trajectory to GROMACS-compatible `.xtc` trajectory, with treating the box vectors as triclinic :
+--stride (optional)
+Stride for trajectory analysis (default: 1). Not recommended if the trajectory is partitioned.
 
-OpenMM and GROMACS use slightly different box matrix conventions.
-OpenMM may contain extremely small floating-point values (e.g. `1e-16`) where GROMACS expects exact zeros..
+--save_mode (optional)
+Output mode (default: 0). 0 = full corrected system trajectory (Protein + non-polymer), 1 = protein-only corrected trajectory, 2 = both trajectories
 
-```bash
-python3 gromacs_trj.py
-```
-
-## 3. Create an index file
-
-Generate the index file for residue that will be used for centering ;
-
-```bash
-gmx make_ndx -f structure.gro -o index.ndx
-```
-
-r RESID
-
-#### Recommendation
-
-For better centering, Compute the system center of mass and Select the residue closest to the center
-
-Use:
-
-```bash
-python3 center_of_mass.py
-```
-
-## 4. Remove periodic boundary jumps and centering trajectory
-
-```bash
-gmx gromacs_nojump_centering.sh <TPR file> <TRAJ file>
-```
-
-##### Recommendation : try to not use stride ( 1/10 frames eg.) when centering ( a lots of problemes then) instead , at the end you can pass them via cpptraj to do stride , stripping of water, lipids, ions ( using strip.sh) in case of memebrane systems :
-
-```bash
-./Cpptraj_strip.sh  <TRAJ file>
-```
+--output_dir (optional)
+Output directory name (default: MD_output)
