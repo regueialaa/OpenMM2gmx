@@ -1,11 +1,13 @@
 
-1/run paremd
-2/convert to xtc with gromacs modif , run gromacs...py
-3/ gmx make_ndx -f pthrp.gro -o index.ndx   r resid    ( ou center of mass python3 center_of_mass.py)
-gmx trjconv -s pthrp.tpr -f  trj_gromacs.xtc  -o trj_nojump.xtc -pbc nojump
+1/run paremd script  , to obtain gro et tpr   from xml + parm7
+2/ run this commmand to obtain tpr :    gmx grompp -f file.mdp -c *.gro -p *.top -o *.tpr
+2/convert the dcd traj to xtc with gromacs modif , modify and run gromacs...py
+!! because of diff in def of box matrix between openmm and gromacs ; 
+!! openmm consider values close to zero (like 1e-16)  , but gromcas needs to be zeros
 
-4/gmx trjconv -s pthrp.tpr -f  trj_nojump.xtc  -o trj_center.xtc -pbc mol -center -ur compact -n index.ndx   21 0  
+3/ gmx make_ndx -f pthrp.gro -o index.ndx   r resid   
+!! i recommand to use the center of mass and search for closest residue to the center( python3 center_of_mass.py)
+4/  no jump : gmx trjconv -s pthrp.tpr -f  trj_gromacs.xtc  -o trj_nojump.xtc -pbc nojump
+5/ centering around the center of mass gmx trjconv -s pthrp.tpr -f  trj_nojump.xtc  -o trj_center.xtc -pbc mol -center -ur compact -n index.ndx   21 0  
 
-
-vmd *.parm7  *.xtc ( always)
-
+6/ visualize : vmd *.parm7  *.xtc ( always)
