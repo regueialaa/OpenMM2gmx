@@ -72,7 +72,7 @@ def parse_args():
         "--top",
         dest="topfile",
         required=True,
-        help="Input topology file : eg. parm7 or pdb ",
+        help="Input topology file : eg. parm7 (recommanded for membrane systems) or pdb ",
     )
     parser.add_argument(
         "--xml",
@@ -97,8 +97,8 @@ def parse_args():
         "--center_res",
         dest="center_res",
         nargs="+",
-        required=True,
-        help='Residue(s) used to center the simulation. Use "COM" to center on the protein center of mass, or specify one or more residues as ranges in this form "resid1-resid3" or "resid1" if single residues. Example: --center_res COM or --center_res 10-50 or --center_res 10 20 30',
+        default="COM",
+        help='Residue used to define the simulation center: "COM" centers on the residue closest to the center of mass of the system, or you can specify your own residue in the form "resid100". Example: --center_res "COM" (default) or --center_res "resid100"',
     )
     parser.add_argument(
         "--sim_name",
@@ -192,7 +192,6 @@ def generate_tpr(GRO_OUTPUT, TOP_OUTPUT, mdp_file, sim_name, output_dir):
         "-maxwarn",
         "1",
     ]
-    print(f"Running command: {' '.join(cmd)}")
     result = subprocess.run(cmd, text=True, capture_output=True)
     with open(f"{output_dir}/log_files/{sim_name}_generation_tpr.log", "w") as log_file:
         log_file.write(result.stdout)
@@ -260,13 +259,13 @@ def make_index_file(GRO_OUTPUT, center_res, sim_name, output_dir):
         q
         """
 
-    elif center_res.find("-") != -1:
+    elif center_res.startswith("resid") and center_res[5:].isdigit():
+        resid_num = center_res[5:]
         ndx_commands = f"""
-        r {center_res}
+        r {resid_num}
         name {center_res}
         q
         """
-
     else:
         logger.error(
             "Invalid center_res format, please refert to documentation for correct usage"
