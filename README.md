@@ -32,7 +32,7 @@ To install it  , please refer to official guide : https://manual.gromacs.org/cur
 Run the script from the command line with the following arguments:
 
 ```bash
-python your_script.py \
+python OpenMM2gmx.py \
   --top topfile.parm7 \
   --xml system.xml \
   --traj traj1.dcd traj2.dcd \
