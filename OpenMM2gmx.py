@@ -2,7 +2,7 @@
 OpenMM → GROMACS Trajectory Conversion and Centering Workflow
 =============================================================
 
-Author: Alaa REGUEI
+Author: Alaa REGUEI & Samuel Murail
 
 Overview
 --------
