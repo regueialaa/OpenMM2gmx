@@ -54,6 +54,7 @@ import sys
 import argparse
 import logging
 from tqdm import tqdm
+from openmm.app import PDBFile, PDBxFile
 
 # Logging
 logger = logging.getLogger(__name__)
@@ -63,7 +64,7 @@ logger.addHandler(logging.StreamHandler(sys.stdout))
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--top", dest='topfile', required=True, help='Input topology file : eg. parm7 ',)
+    parser.add_argument("--top", dest='topfile', required=True, help='Input topology file : eg. parm7 or pdb ',)
     parser.add_argument("--xml", dest='xmlfile', required=True, help='Input OpenMM coordinates/system information XML file from the production run ',)
     parser.add_argument("--traj", dest='trajfile', nargs="+", required=True, help='Input OpenMM trajectory files : eg. traj.dcd or traj_part1.dcd traj_part2.dcd ...')
     parser.add_argument("--mdp", dest='mdpfile', required=True, help='Input GROMACS mdp file',)
@@ -78,7 +79,10 @@ def parse_args():
 
 def generate_gro_top_files(top_file, xml_file, sim_name, output_dir):
     logger.info("- Generating .gro and .top files")
-    system = pmd.load_file(top_file, xyz=xml_file)
+    if top_file.endswith(".parm7"):
+        system = pmd.load_file(top_file, xyz=xml_file)
+    elif top_file.endswith(".pdb"):
+        system = pmd.openmm.load_topology(PDBFile(top_file).topology, xyz=xml_file)
     
     # Output files
     GRO_OUTPUT = f"{output_dir}/{sim_name}.gro"
@@ -119,7 +123,10 @@ def generate_tpr(GRO_OUTPUT, TOP_OUTPUT, mdp_file, sim_name, output_dir):
 def convert_traj(top_file, traj_files, sim_name, stride=1, output_dir="MD_output"):
 
     logger.info("- Converting trajectory files to XTC format")
-    u = mda.Universe(top_file, traj_files)
+    if top_file.endswith(".parm7"):
+        u = mda.Universe(top_file, traj_files)
+    elif top_file.endswith(".pdb"):
+        u = mda.Universe(PDBFile(top_file).topology, traj_files)
     with XTCWriter(f"{output_dir}/{sim_name}_trj.xtc", n_atoms=u.atoms.n_atoms) as writer:
         for ts in tqdm(u.trajectory[::stride]):
             box = ts.dimensions.copy()
