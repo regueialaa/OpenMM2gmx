@@ -55,6 +55,7 @@ import sys
 import argparse
 import logging
 from tqdm import tqdm
+from openmm.app import PDBFile, PDBxFile
 
 from openmm.app import PDBFile, PDBxFile, ForceField, Simulation
 from openmm import unit, app
