@@ -48,7 +48,7 @@ python OpenMM2gmx.py \
 ## Command-Line Arguments
 
 --top (required)
-Input topology file (e.g. parm7)
+Input topology file : eg. parm7 (recommanded for membrane systems) , pdb , cif or mmcif
 
 --xml (required)
 OpenMM coordinates/system XML file from the production run
@@ -60,7 +60,7 @@ One or more OpenMM trajectory files (e.g. traj.dcd or traj_part1.dcd traj_part2.
 Input GROMACS .mdp file
 
 --center_res (required)
-Residue(s) used to center the simulation. Use COM to center on the protein center of mass. Use residue ranges like 10-50, single residues like 10, or multiple residues/ranges like 10 20 30 or 10-20 30-40. Examples: --center_res COM, --center_res 10-50, --center_res 10 20 30
+Residue used to define the simulation center: "COM" centers on the residue closest to the center of mass of the system, or you can specify your own residue in the form "resid100". Example: --center_res "COM" (default) or --center_res "resid:A:100"'
 
 --sim_name (required)
 Name of the simulation/replica (used in output filenames and logs)
