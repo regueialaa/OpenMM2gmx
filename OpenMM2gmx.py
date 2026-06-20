@@ -72,7 +72,7 @@ def parse_args():
         "--top",
         dest="topfile",
         required=True,
-        help="Input topology file : eg. parm7 (recommanded for membrane systems) or pdb ",
+        help="Input topology file : eg. parm7 (recommanded for membrane systems) , pdb , cif or mmcif ",
     )
     parser.add_argument(
         "--xml",
@@ -98,7 +98,7 @@ def parse_args():
         dest="center_res",
         nargs="+",
         default="COM",
-        help='Residue used to define the simulation center: "COM" centers on the residue closest to the center of mass of the system, or you can specify your own residue in the form "resid100". Example: --center_res "COM" (default) or --center_res "resid100"',
+        help='Residue used to define the simulation center: "COM" centers on the residue closest to the center of mass of the system, or you can specify your own residue in the form "resid100". Example: --center_res "COM" (default) or --center_res "resid:A:100"',
     )
     parser.add_argument(
         "--sim_name",
@@ -141,18 +141,24 @@ def generate_gro_top_files(top_file, xml_file, sim_name, output_dir):
     if top_file.endswith(".parm7"):
         structure = pmd.load_file(top_file, xyz=xml_file)
 
-    elif top_file.endswith(".pdb"):
-        pdb = PDBFile(top_file)
+    elif (
+        top_file.endswith(".pdb")
+        or top_file.endswith(".cif")
+        or top_file.endswith(".mmcif")
+    ):
+        if top_file.endswith(".cif") or top_file.endswith(".mmcif"):
+            top = PDBxFile(top_file)
+        else:
+            top = PDBFile(top_file)
         forcefield_files = ["charmm36.xml", "charmm36/water.xml"]
         forcefield = ForceField(*forcefield_files)
         system = forcefield.createSystem(
-            pdb.topology,
+            top.topology,
             nonbondedCutoff=1 * unit.nanometer,
             constraints=None,
             rigidWater=False,
         )
-        structure = pmd.openmm.load_topology(pdb.topology, system, xyz=xml_file)
-
+        structure = pmd.openmm.load_topology(top.topology, system, xyz=xml_file)
 
     # Output files
     GRO_OUTPUT = f"{output_dir}/{sim_name}.gro"
@@ -206,8 +212,16 @@ def convert_traj(top_file, traj_files, sim_name, stride=1, output_dir="MD_output
     logger.info("- Converting trajectory files to XTC format")
     if top_file.endswith(".parm7"):
         u = mda.Universe(top_file, traj_files)
-    elif top_file.endswith(".pdb"):
-        u = mda.Universe(PDBFile(top_file).topology, traj_files)
+    elif (
+        top_file.endswith(".pdb")
+        or top_file.endswith(".cif")
+        or top_file.endswith(".mmcif")
+    ):
+        if top_file.endswith(".cif") or top_file.endswith(".mmcif"):
+            top = PDBxFile(top_file)
+        else:
+            top = PDBFile(top_file)
+        u = mda.Universe(top.topology, traj_files)
     with XTCWriter(
         f"{output_dir}/{sim_name}_trj.xtc", n_atoms=u.atoms.n_atoms
     ) as writer:
@@ -243,10 +257,16 @@ def compute_center_of_mass(GRO_OUTPUT):
     return int(closest_residue.resid)
 
 
-def make_index_file(GRO_OUTPUT, center_res, sim_name, output_dir):
+def make_index_file(GRO_OUTPUT, top_file, center_res, sim_name, output_dir):
     logger.info("- Generating index file ")
-    cmd = ["gmx", "make_ndx", "-f", GRO_OUTPUT, "-o", f"{sim_name}_index.ndx"]
-
+    cmd = [
+        "gmx",
+        "make_ndx",
+        "-f",
+        GRO_OUTPUT,
+        "-o",
+        f"{output_dir}/{sim_name}_index.ndx",
+    ]
     if isinstance(center_res, list):
         center_res = center_res[0]
 
@@ -255,25 +275,45 @@ def make_index_file(GRO_OUTPUT, center_res, sim_name, output_dir):
         COM_res = compute_center_of_mass(GRO_OUTPUT)
         ndx_commands = f"""
         r {COM_res}
-        name  COM
         q
         """
 
-    elif center_res.startswith("resid") and center_res[5:].isdigit():
-        resid_num = center_res[5:]
+    elif center_res.startswith("resid") and ":" in center_res:
+        chain_and_res = center_res.split(":")
+        chain, resid_num = chain_and_res[1], int(chain_and_res[2])
+
+        if top_file.endswith(".parm7"):
+            u = mda.Universe(top_file)
+        elif (
+            top_file.endswith(".pdb")
+            or top_file.endswith(".cif")
+            or top_file.endswith(".mmcif")
+        ):
+            if top_file.endswith(".cif") or top_file.endswith(".mmcif"):
+                top = PDBxFile(top_file)
+            else:
+                top = PDBFile(top_file)
+
+        u = mda.Universe(top.topology)
+        atoms = u.select_atoms(f"chainID {chain}")
+        new_resid = int(resid_num) - 1 + atoms.resnums.min()
+
+        atoms = u.select_atoms(f"chainID {chain} and resid {new_resid}")
+        if len(atoms.indices) == 0:
+            raise ValueError(f"Empty selection for chain {chain} resid {new_resid}")
+        sel = " ".join(map(lambda x: str(x + 1), atoms.indices))
         ndx_commands = f"""
-        r {resid_num}
-        name {center_res}
+        a {sel}
         q
         """
+
     else:
         logger.error(
             "Invalid center_res format, please refert to documentation for correct usage"
         )
         return
-
+    print(f"Running command: {' '.join(cmd)}")
     result = subprocess.run(cmd, input=ndx_commands, text=True, capture_output=True)
-
     lines = result.stdout.splitlines()
     group_ids = []
     for line in lines:
@@ -299,7 +339,7 @@ def make_index_file(GRO_OUTPUT, center_res, sim_name, output_dir):
     logger.info(
         f"- Index file generated: {sim_name}_index.ndx with group {center_res} (group id: {new_group_id})"
     )
-    return new_group_id, f"{sim_name}_index.ndx", protein_index
+    return new_group_id, f"{output_dir}/{sim_name}_index.ndx", protein_index
 
 
 def traj_correction(
@@ -517,7 +557,7 @@ if __name__ == "__main__":
 
     OUTPUT_XTC = convert_traj(top_file, traj_files, sim_name, stride, output_dir)
     new_group_id, INDEX_OUTPUT, protein_index = make_index_file(
-        GRO_OUTPUT, center_res, sim_name, output_dir
+        GRO_OUTPUT, top_file, center_res, sim_name, output_dir
     )
     traj_correction(
         GRO_OUTPUT,
