@@ -1,6 +1,6 @@
 # OpenMM2gmx
 
-<img width="1024" height="559" alt="image" align="center" src="https://github.com/user-attachments/assets/0f7ccc06-e66b-4ca1-91b5-4342222cc7e3" />
+#<img width="1024" height="559" alt="image" align="center" src="https://github.com/user-attachments/assets/0f7ccc06-e66b-4ca1-91b5-4342222cc7e3" />
 <img width="1024" height="436" alt="image" align="center" src="https://github.com/user-attachments/assets/bc48fe8c-4316-4f39-a4d5-4593d9c21176" />
 
 A workflow for converting and centering OpenMM trajectories using GROMACS.
