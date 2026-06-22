@@ -452,7 +452,7 @@ def traj_correction(
                 "-n",
                 INDEX_OUTPUT,
                 "-o",
-                f"{output_dir}/{sim_name}.gro",
+                f"{output_dir}/{sim_name}_only_protein.gro",
             ]
             result3 = subprocess.run(
                 cmd3, input=f"{protein_index}\n", text=True, capture_output=True
@@ -515,7 +515,7 @@ def traj_correction(
                 "-n",
                 INDEX_OUTPUT,
                 "-o",
-                f"{output_dir}/{sim_name}.gro",
+                f"{output_dir}/{sim_name}_only_protein.gro",
             ]
             result3 = subprocess.run(
                 cmd3, input=f"{protein_index}\n", text=True, capture_output=True
