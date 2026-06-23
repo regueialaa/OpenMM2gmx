@@ -96,6 +96,6 @@ Output directory name (default: MD_output)
 
 If you use OpenMM2gmx in your work, please cite the following software packages:
 
-- **OpenMM**: Eastman *et al.* (2024). *OpenMM 8: Molecular Dynamics Simulation with Machine Learning Potentials*. The Journal of Physical Chemistry B, **128**(1), 109–116.
+- **OpenMM**: Eastman *et al.* (2024). *OpenMM 8: Molecular Dynamics Simulation with Machine Learning Potentials*. The Journal of Physical Chemistry B, 128 (1), 109–116.
 
-- **GROMACS**: Abraham *et al.* (2015). *GROMACS: High performance molecular simulations through multi-level parallelism from laptops to supercomputers*. SoftwareX, **1-2**, 19–25.
+- **GROMACS**: Abraham *et al.* (2015). *GROMACS: High performance molecular simulations through multi-level parallelism from laptops to supercomputers*. SoftwareX, 1-2, 19–25.
