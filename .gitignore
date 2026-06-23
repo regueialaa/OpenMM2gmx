@@ -1,0 +1,10 @@
+MD_output/
+GPCR_case/
+*.xtc
+*.dcd
+*.gro
+*.tpr
+*.top
+*.ndx
+*.log
+.ipynb_checkpoints/
