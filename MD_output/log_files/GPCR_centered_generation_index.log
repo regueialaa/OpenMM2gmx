@@ -1,0 +1,85 @@
+Going to read 0 old index file(s)
+Analysing residue names:
+There are:   450    Protein residues
+There are:  1035      Other residues
+There are: 29595      Water residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+
+  0 System              : 135013 atoms
+  1 Protein             :  7334 atoms
+  2 Protein-H           :  3667 atoms
+  3 C-alpha             :   450 atoms
+  4 Backbone            :  1350 atoms
+  5 MainChain           :  1802 atoms
+  6 MainChain+Cb        :  2228 atoms
+  7 MainChain+H         :  2241 atoms
+  8 SideChain           :  5093 atoms
+  9 SideChain-H         :  1865 atoms
+ 10 Prot-Masses         :  7334 atoms
+ 11 non-Protein         : 127679 atoms
+ 12 Other               : 38894 atoms
+ 13 PA                  : 13294 atoms
+ 14 PC                  : 10982 atoms
+ 15 OL                  : 14450 atoms
+ 16 Na+                 :    79 atoms
+ 17 Cl-                 :    89 atoms
+ 18 Water               : 88785 atoms
+ 19 SOL                 : 88785 atoms
+ 20 non-Water           : 46228 atoms
+
+ nr : group      '!': not  'name' nr name   'splitch' nr    Enter: list groups
+ 'a': atom       '&': and  'del' nr         'splitres' nr   'l': list residues
+ 't': atom type  '|': or   'keep' nr        'splitat' nr    'h': help
+ 'r': residue              'res' nr         'chain' char
+ "name": group             'case': case sensitive           'q': save and quit
+ 'ri': residue index
+
+> 
+
+  0 System              : 135013 atoms
+  1 Protein             :  7334 atoms
+  2 Protein-H           :  3667 atoms
+  3 C-alpha             :   450 atoms
+  4 Backbone            :  1350 atoms
+  5 MainChain           :  1802 atoms
+  6 MainChain+Cb        :  2228 atoms
+  7 MainChain+H         :  2241 atoms
+  8 SideChain           :  5093 atoms
+  9 SideChain-H         :  1865 atoms
+ 10 Prot-Masses         :  7334 atoms
+ 11 non-Protein         : 127679 atoms
+ 12 Other               : 38894 atoms
+ 13 PA                  : 13294 atoms
+ 14 PC                  : 10982 atoms
+ 15 OL                  : 14450 atoms
+ 16 Na+                 :    79 atoms
+ 17 Cl-                 :    89 atoms
+ 18 Water               : 88785 atoms
+ 19 SOL                 : 88785 atoms
+ 20 non-Water           : 46228 atoms
+
+ nr : group      '!': not  'name' nr name   'splitch' nr    Enter: list groups
+ 'a': atom       '&': and  'del' nr         'splitres' nr   'l': list residues
+ 't': atom type  '|': or   'keep' nr        'splitat' nr    'h': help
+ 'r': residue              'res' nr         'chain' char
+ "name": group             'case': case sensitive           'q': save and quit
+ 'ri': residue index
+
+> 
+
+> 
+                     :-) GROMACS - gmx make_ndx, 2025.4 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /home/reguei/OpenMM2gmx
+Command line:
+  gmx make_ndx -f MD_output/GPCR_centered.gro -o MD_output/GPCR_centered_index.ndx
+
+
+Reading structure file
+
+GROMACS reminds you: "They don't have half hours in the north" (Carl Caleman)
+
+Index file generated: index.ndx

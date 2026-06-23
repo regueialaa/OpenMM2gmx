@@ -1,0 +1,204 @@
+=== Step 1: -pbc nojump ===
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for output
+Selected 0: 'System'
+                     :-) GROMACS - gmx trjconv, 2025.4 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /home/reguei/OpenMM2gmx
+Command line:
+  gmx trjconv -s MD_output/GPCR_centered.tpr -f MD_output/GPCR_centered_trj.xtc -o MD_output/GPCR_centered_nojump.xtc -pbc nojump
+
+Will write xtc: Compressed trajectory (portable xdr format): xtc
+Reading file MD_output/GPCR_centered.tpr, VERSION 2025.4 (single precision)
+Reading file MD_output/GPCR_centered.tpr, VERSION 2025.4 (single precision)
+Group     0 (         System) has 135013 elements
+Group     1 (        Protein) has  7334 elements
+Group     2 (      Protein-H) has  3667 elements
+Group     3 (        C-alpha) has   450 elements
+Group     4 (       Backbone) has  1350 elements
+Group     5 (      MainChain) has  1802 elements
+Group     6 (   MainChain+Cb) has  2228 elements
+Group     7 (    MainChain+H) has  2241 elements
+Group     8 (      SideChain) has  5093 elements
+Group     9 (    SideChain-H) has  1865 elements
+Group    10 (    Prot-Masses) has  7334 elements
+Group    11 (    non-Protein) has 127679 elements
+Group    12 (          Other) has 38894 elements
+Group    13 (             PA) has 13294 elements
+Group    14 (             PC) has 10982 elements
+Group    15 (             OL) has 14450 elements
+Group    16 (            Na+) has    79 elements
+Group    17 (            Cl-) has    89 elements
+Group    18 (          Water) has 88785 elements
+Group    19 (            SOL) has 88785 elements
+Group    20 (      non-Water) has 46228 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Precision of MD_output/GPCR_centered_trj.xtc is 0.001 (nm)
+Using output precision of 0.001 (nm)
+
+Reading frame       1 time    0.049    ->  frame      0 time    0.000      
+
+Reading frame       2 time    0.098    ->  frame      1 time    0.049      
+
+Reading frame       3 time    0.147    ->  frame      2 time    0.098      
+
+Reading frame       4 time    0.196    ->  frame      3 time    0.147      
+
+Reading frame       5 time    0.244    ->  frame      4 time    0.196      
+
+Reading frame       6 time    0.293    ->  frame      5 time    0.244      
+
+Reading frame       7 time    0.342    ->  frame      6 time    0.293      
+
+Reading frame       8 time    0.391    ->  frame      7 time    0.342      
+
+Reading frame       9 time    0.440    ->  frame      8 time    0.391      
+
+Reading frame      10 time    0.489    ->  frame      9 time    0.440      
+
+Reading frame      11 time    0.538    ->  frame     10 time    0.489      
+
+Reading frame      12 time    0.587    ->  frame     11 time    0.538      
+
+Reading frame      13 time    0.636    ->  frame     12 time    0.587      
+
+Reading frame      14 time    0.684    ->  frame     13 time    0.636      
+
+Reading frame      15 time    0.733    ->  frame     14 time    0.684      
+
+Reading frame      16 time    0.782    ->  frame     15 time    0.733      
+
+Reading frame      17 time    0.831    ->  frame     16 time    0.782      
+
+Reading frame      18 time    0.880    ->  frame     17 time    0.831      
+
+Reading frame      19 time    0.929    ->  frame     18 time    0.880      
+
+Reading frame      20 time    0.978    ->  frame     19 time    0.929      
+
+Last frame         20 time    0.978   
+ ->  frame     20 time    0.978      
+Last written: frame     20 time    0.978
+
+
+GROMACS reminds you: "They don't have half hours in the north" (Carl Caleman)
+
+
+=== Step 2: centering ===
+Note that major changes are planned in future for trjconv, to improve usability and utility.
+Select group for centering
+Selected 21: 'r_421'
+Select group for output
+Selected 0: 'System'
+                     :-) GROMACS - gmx trjconv, 2025.4 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /home/reguei/OpenMM2gmx
+Command line:
+  gmx trjconv -s MD_output/GPCR_centered.tpr -f MD_output/GPCR_centered_nojump.xtc -n MD_output/GPCR_centered_index.ndx -o MD_output/GPCR_centered_trj_no_jump_centered_full_complex.xtc -pbc mol -center -ur compact
+
+Will write xtc: Compressed trajectory (portable xdr format): xtc
+Reading file MD_output/GPCR_centered.tpr, VERSION 2025.4 (single precision)
+Reading file MD_output/GPCR_centered.tpr, VERSION 2025.4 (single precision)
+Group     0 (         System) has 135013 elements
+Group     1 (        Protein) has  7334 elements
+Group     2 (      Protein-H) has  3667 elements
+Group     3 (        C-alpha) has   450 elements
+Group     4 (       Backbone) has  1350 elements
+Group     5 (      MainChain) has  1802 elements
+Group     6 (   MainChain+Cb) has  2228 elements
+Group     7 (    MainChain+H) has  2241 elements
+Group     8 (      SideChain) has  5093 elements
+Group     9 (    SideChain-H) has  1865 elements
+Group    10 (    Prot-Masses) has  7334 elements
+Group    11 (    non-Protein) has 127679 elements
+Group    12 (          Other) has 38894 elements
+Group    13 (             PA) has 13294 elements
+Group    14 (             PC) has 10982 elements
+Group    15 (             OL) has 14450 elements
+Group    16 (            Na+) has    79 elements
+Group    17 (            Cl-) has    89 elements
+Group    18 (          Water) has 88785 elements
+Group    19 (            SOL) has 88785 elements
+Group    20 (      non-Water) has 46228 elements
+Group    21 (          r_421) has    19 elements
+Select a group: Group     0 (         System) has 135013 elements
+Group     1 (        Protein) has  7334 elements
+Group     2 (      Protein-H) has  3667 elements
+Group     3 (        C-alpha) has   450 elements
+Group     4 (       Backbone) has  1350 elements
+Group     5 (      MainChain) has  1802 elements
+Group     6 (   MainChain+Cb) has  2228 elements
+Group     7 (    MainChain+H) has  2241 elements
+Group     8 (      SideChain) has  5093 elements
+Group     9 (    SideChain-H) has  1865 elements
+Group    10 (    Prot-Masses) has  7334 elements
+Group    11 (    non-Protein) has 127679 elements
+Group    12 (          Other) has 38894 elements
+Group    13 (             PA) has 13294 elements
+Group    14 (             PC) has 10982 elements
+Group    15 (             OL) has 14450 elements
+Group    16 (            Na+) has    79 elements
+Group    17 (            Cl-) has    89 elements
+Group    18 (          Water) has 88785 elements
+Group    19 (            SOL) has 88785 elements
+Group    20 (      non-Water) has 46228 elements
+Group    21 (          r_421) has    19 elements
+Select a group: 
+Reading frame       0 time    0.000   
+Precision of MD_output/GPCR_centered_nojump.xtc is 0.001 (nm)
+Using output precision of 0.001 (nm)
+
+Reading frame       1 time    0.049    ->  frame      0 time    0.000      
+
+Reading frame       2 time    0.098    ->  frame      1 time    0.049      
+
+Reading frame       3 time    0.147    ->  frame      2 time    0.098      
+
+Reading frame       4 time    0.196    ->  frame      3 time    0.147      
+
+Reading frame       5 time    0.244    ->  frame      4 time    0.196      
+
+Reading frame       6 time    0.293    ->  frame      5 time    0.244      
+
+Reading frame       7 time    0.342    ->  frame      6 time    0.293      
+
+Reading frame       8 time    0.391    ->  frame      7 time    0.342      
+
+Reading frame       9 time    0.440    ->  frame      8 time    0.391      
+
+Reading frame      10 time    0.489    ->  frame      9 time    0.440      
+
+Reading frame      11 time    0.538    ->  frame     10 time    0.489      
+
+Reading frame      12 time    0.587    ->  frame     11 time    0.538      
+
+Reading frame      13 time    0.636    ->  frame     12 time    0.587      
+
+Reading frame      14 time    0.684    ->  frame     13 time    0.636      
+
+Reading frame      15 time    0.733    ->  frame     14 time    0.684      
+
+Reading frame      16 time    0.782    ->  frame     15 time    0.733      
+
+Reading frame      17 time    0.831    ->  frame     16 time    0.782      
+
+Reading frame      18 time    0.880    ->  frame     17 time    0.831      
+
+Reading frame      19 time    0.929    ->  frame     18 time    0.880      
+
+Reading frame      20 time    0.978    ->  frame     19 time    0.929      
+
+Last frame         20 time    0.978   
+ ->  frame     20 time    0.978      
+Last written: frame     20 time    0.978
+
+
+GROMACS reminds you: "Like what you do, and then you will do your best." (Katherine Johnson)
+
+
+Corrected trajectory generated: MD_output/GPCR_centered_trj_no_jump_centered_full_complex.xtc

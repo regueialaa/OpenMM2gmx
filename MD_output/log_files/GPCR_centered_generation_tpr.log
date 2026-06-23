@@ -1,0 +1,68 @@
+Setting the LD random seed to -71581987
+
+Generated 1378 of the 1378 non-bonded parameter combinations
+
+Generated 1378 of the 1378 1-4 parameter combinations
+
+Excluding 3 bonded neighbours molecule type 'system1'
+
+Excluding 3 bonded neighbours molecule type 'system2'
+
+Excluding 3 bonded neighbours molecule type 'system3'
+
+Excluding 3 bonded neighbours molecule type 'Na+'
+
+Excluding 3 bonded neighbours molecule type 'Cl-'
+
+Excluding 3 bonded neighbours molecule type 'WAT'
+Analysing residue names:
+There are:   450    Protein residues
+There are:  1035      Other residues
+There are: 29595      Water residues
+Analysing Protein...
+Analysing residues not classified as Protein/DNA/RNA/Water and splitting into groups...
+
+The largest distance between excluded atoms is 0.425 nm between atom 2386 and 2394
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 96x96x120, spacing 0.108 0.108 0.116
+
+Estimate for the relative computational load of the PME mesh part: 0.32
+
+This run will generate roughly 10 Mb of data
+                      :-) GROMACS - gmx grompp, 2025.4 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /home/reguei/OpenMM2gmx
+Command line:
+  gmx grompp -f example_file.mdp -c MD_output/GPCR_centered.gro -p MD_output/GPCR_centered.top -o MD_output/GPCR_centered.tpr -maxwarn 1
+
+Ignoring obsolete mdp entry 'ns_type'
+
+NOTE 1 [file example_file.mdp]:
+  With Verlet lists the optimal nstlist is >= 10, with GPUs >= 20. Note
+  that with the Verlet scheme, nstlist has no effect on the accuracy of
+  your simulation.
+
+
+NOTE 2 [file example_file.mdp]:
+  For a correct single-point energy evaluation with nsteps = 0, use
+  continuation = yes to avoid constraining the input coordinates.
+
+Generating 1-4 interactions: fudge = 1
+
+NOTE 3 [file GPCR_centered.top, line 82366]:
+  Zero-step energy minimization will alter the coordinates before
+  calculating the energy. If you just want the energy of a single point,
+  try zero-step MD (with unconstrained_start = yes). To do multiple
+  single-point energy evaluations of different configurations of the same
+  topology, use mdrun -rerun.
+
+Number of degrees of freedom in T-Coupling group rest is 316251.00
+The integrator does not provide a ensemble temperature, there is no system ensemble temperature
+
+There were 3 NOTEs
+
+GROMACS reminds you: "Science is not a boy's game, it's not a girl's game. It's everyone's game. It's about where we are and where we're going." (Nichelle Nichols)
+
+TPR file generated: MD_output/GPCR_centered.tpr
