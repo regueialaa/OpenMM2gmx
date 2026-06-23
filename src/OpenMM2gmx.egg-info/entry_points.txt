@@ -1,0 +1,2 @@
+[console_scripts]
+OpenMM2gmx = OpenMM2gmx.__main__:main

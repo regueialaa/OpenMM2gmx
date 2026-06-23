@@ -7,7 +7,7 @@ name = "OpenMM2gmx"
 version = "1.0.0"
 dynamic = ["readme", "dependencies"]
 description = "OpenMM2gmx is a small open-source tool to center and fix PBC problems in molecular dynamics trajectories generated with OpenMM (via GROMACS intermediates)."
-license = {text = "GNUv2.0"}
+license = "GPL-2.0-or-later"
 requires-python = ">=3.7"
 authors = [
     { name = "Alaa REGUEI", email = "alaa.reguei@u-paris.fr" },
@@ -44,3 +44,9 @@ OpenMM2gmx = "OpenMM2gmx.__main__:main"
 # version = {attr = "OpenMM2gmx.VERSION"}
 readme = {file = ["README.md"]}
 dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
