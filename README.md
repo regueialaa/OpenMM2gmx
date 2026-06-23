@@ -32,7 +32,11 @@ To install it  , please refer to official guide : https://manual.gromacs.org/cur
 
 ## Usage
 
-Run the script from the command line with the following arguments:
+OpenMM2gmx can be used either from the command line or directly in Python (e.g., in a Jupyter Notebook).
+
+### Option 1: Command line
+
+Run the script with the following arguments:
 
 ```bash
 python OpenMM2gmx.py \
@@ -47,7 +51,19 @@ python OpenMM2gmx.py \
   --output_dir MD_output
 ```
 
-## Command-Line Arguments
+### Option 2: Python / Jupyter Notebook
+
+OpenMM2gmx can also be imported and used directly in Python scripts or Jupyter Notebooks.
+
+An example notebook demonstrating the package on a Class B GPCR system is provided:
+
+```text
+GPCR_case.ipynb
+```
+
+This tutorial shows how to import the package and run the workflow directly from a Python environment.
+
+## Arguments
 
 --top (required)
 Input topology file : eg. parm7 (recommanded for membrane systems) , pdb , cif or mmcif
@@ -75,3 +91,11 @@ Output mode (default: 0). 0 = full corrected system trajectory (Protein + non-po
 
 --output_dir (optional)
 Output directory name (default: MD_output)
+
+## References
+
+If you use OpenMM2gmx in your work, please cite the following software packages:
+
+- **OpenMM**: Eastman *et al.* (2024). *OpenMM 8: Molecular Dynamics Simulation with Machine Learning Potentials*. The Journal of Physical Chemistry B, **128**(1), 109–116.
+
+- **GROMACS**: Abraham *et al.* (2015). *GROMACS: High performance molecular simulations through multi-level parallelism from laptops to supercomputers*. SoftwareX, **1-2**, 19–25.
