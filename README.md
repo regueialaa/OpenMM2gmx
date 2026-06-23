@@ -23,7 +23,10 @@ Samuel Murail, Associate Professor - Université Paris Cité, BFA.
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/regueialaa/OpenMM2gmx.git
+cd OpenMM2gmx
+pip install .
+OpenMM2gmx --help
 ```
 also you will need to install **parmed** and **openmm** ,we recommend using conda ;
 
@@ -39,7 +42,7 @@ OpenMM2gmx can be used either from the command line or directly in Python (e.g.,
 Run the script with the following arguments:
 
 ```bash
-python OpenMM2gmx.py \
+OpenMM2gmx \
   --top topfile.parm7 \
   --xml system.xml \
   --traj traj1.dcd traj2.dcd \
