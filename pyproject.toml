@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "OpenMM2gmx"
+version = "1.0.0"
+dynamic = ["readme", "dependencies"]
+description = "OpenMM2gmx is a small open-source tool to center and fix PBC problems in molecular dynamics trajectories generated with OpenMM (via GROMACS intermediates)."
+license = {text = "GNUv2.0"}
+requires-python = ">=3.7"
+authors = [
+    { name = "Alaa REGUEI", email = "alaa.reguei@u-paris.fr" },
+    { name = "Samuel Murail", email = "samuel.murail@u-paris.fr" },]
+keywords = [
+        "openmm",
+        "gromacs",
+        "Molecular Dynamics",
+        "Trajectory Centering",
+        "PBC Correction",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python",
+    "Topic :: Software Development",
+]
+
+[project.scripts]
+OpenMM2gmx = "OpenMM2gmx.__main__:main"
+
+
+[tool.setuptools.dynamic]
+# version = {attr = "OpenMM2gmx.VERSION"}
+readme = {file = ["README.md"]}
+dependencies = {file = ["requirements.txt"]}
