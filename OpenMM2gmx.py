@@ -534,31 +534,66 @@ def traj_correction(
     return centered_xtc
 
 
-if __name__ == "__main__":
-
+def main():
+    """Parses command-line arguments for the OpenMM to GROMACS conversion script and initiates the trajectory centering process."""
     args = parse_args()
     logger.info("- Read input files")
-    top_file = args.topfile
-    xml_file = args.xmlfile
-    traj_files = args.trajfile
-    mdp_file = args.mdpfile
-    sim_name = args.sim_name
-    center_res = args.center_res
-    stride = args.stride
-    save_mode = args.save_mode
-    output_dir = args.output_dir
+    center_trajs(
+        top_file=args.topfile,
+        xml_file=args.xmlfile,
+        traj_files=args.trajfile,
+        mdp_file=args.mdpfile,
+        sim_name=args.sim_name,
+        center_res=args.center_res,
+        stride=args.stride,
+        save_mode=args.save_mode,
+        output_dir=args.output_dir,
+    )
+
+
+def center_trajs(
+    top_file,
+    xml_file,
+    traj_files,
+    mdp_file,
+    sim_name,
+    center_res="COM",
+    stride=1,
+    save_mode=0,
+    output_dir="MD_output",
+):
+    """Main function that orchestrates the entire conversion and centering workflow.
+
+    It sequentially automates all steps: generating GROMACS files (.gro, .top, .tpr),
+    converting the trajectory (.dcd to .xtc), creating the index file, and
+    correcting periodic boundary condition (PBC) jumps.
+
+    Arguments:
+        top_file: Input topology file (.parm7, .pdb, .cif, or .mmcif).
+        xml_file: Input OpenMM coordinates/system information XML file.
+        traj_files : Input OpenMM trajectory files to process.
+        mdp_file: Input GROMACS mdp file.
+        sim_name: Name of the simulation used for output file prefixes.
+        center_res : "COM" to center on the center of mass (by default), or a specific residue (e.g., "resid:A:100").
+        stride : Stride for trajectory analysis (default is 1).
+        save_mode : 0 = full system, 1 = protein-only, 2 = both trajectories.
+        output_dir: Output directory name for files and logs.
+
+    """
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(f"{output_dir}/log_files", exist_ok=True)
-
+    
     GRO_OUTPUT, TOP_OUTPUT = generate_gro_top_files(
         top_file, xml_file, sim_name, output_dir
     )
     TPR_OUTPUT = generate_tpr(GRO_OUTPUT, TOP_OUTPUT, mdp_file, sim_name, output_dir)
 
     OUTPUT_XTC = convert_traj(top_file, traj_files, sim_name, stride, output_dir)
+
     new_group_id, INDEX_OUTPUT, protein_index = make_index_file(
         GRO_OUTPUT, top_file, center_res, sim_name, output_dir
     )
+
     traj_correction(
         GRO_OUTPUT,
         TPR_OUTPUT,
@@ -570,3 +605,7 @@ if __name__ == "__main__":
         save_mode,
         protein_index,
     )
+
+
+if __name__ == "__main__":
+    main()
