@@ -22,16 +22,17 @@ Samuel Murail, Associate Professor - Université Paris Cité, BFA.
 
 ## Installation
 
+You will need first to install **parmed** and **openmm** ,we recommend using conda ;
+
+Make sure you have **GROMACS** installed and available in your `PATH` (e.g. `gmx trjconv`, `gmx make_ndx`).
+To install it  , please refer to official guide : https://manual.gromacs.org/current/install-guide/index.html
+
 ```bash
 git clone https://github.com/regueialaa/OpenMM2gmx.git
 cd OpenMM2gmx
 pip install .
 OpenMM2gmx --help
 ```
-also you will need to install **parmed** and **openmm** ,we recommend using conda ;
-
-Make sure you have **GROMACS** installed and available in your `PATH` (e.g. `gmx trjconv`, `gmx make_ndx`).
-To install it  , please refer to official guide : https://manual.gromacs.org/current/install-guide/index.html
 
 ## Usage
 
