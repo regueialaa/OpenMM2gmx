@@ -25,9 +25,9 @@ Samuel Murail, Associate Professor - Université Paris Cité, BFA.
 ```bash
 pip install -r requirements.txt
 ```
-also you will need to install parmed and openmm ,we recommend using conda ;
+also you will need to install **parmed** and **openmm** ,we recommend using conda ;
 
-Make sure you have GROMACS installed and available in your `PATH` (e.g. `gmx trjconv`, `gmx make_ndx`).
+Make sure you have **GROMACS** installed and available in your `PATH` (e.g. `gmx trjconv`, `gmx make_ndx`).
 To install it  , please refer to official guide : https://manual.gromacs.org/current/install-guide/index.html
 
 ## Usage
