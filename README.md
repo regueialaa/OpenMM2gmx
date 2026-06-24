@@ -17,8 +17,8 @@ This repository provides a workflow to:
 
 ## Authors
 
-Alaa REGUEI, PhD Student - Université Paris Cité, BFA.\
-Samuel Murail, Associate Professor - Université Paris Cité, BFA.
+- Alaa REGUEI, PhD Student - Université Paris Cité, BFA.\
+- Samuel Murail, Associate Professor - Université Paris Cité, BFA.
 
 ## Installation
 
