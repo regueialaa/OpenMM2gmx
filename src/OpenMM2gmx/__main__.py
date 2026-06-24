@@ -85,7 +85,7 @@ def parse_args():
         dest="trajfile",
         nargs="+",
         required=True,
-        help="Input OpenMM trajectory files : eg. traj.dcd or traj_part1.dcd traj_part2.dcd ...",
+        help="Input OpenMM trajectory files : eg. traj.dcd or traj_part1.dcd traj_part2.dcd traj_part3.dcd ...",
     )
     parser.add_argument(
         "--mdp",
