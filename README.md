@@ -88,7 +88,7 @@ Residue used to define the simulation center: "COM" centers on the residue close
 Name of the simulation/replica (used in output filenames and logs)
 
 --stride (optional)
-Stride for trajectory analysis (default: 1). Not recommended if the trajectory is partitioned.
+Stride for trajectory analysis (default: 1).
 
 --save_mode (optional)
 Output mode (default: 0). 0 = full corrected system trajectory (Protein + non-polymer), 1 = protein-only corrected trajectory, 2 = both trajectories
