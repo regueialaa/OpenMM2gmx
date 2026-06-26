@@ -110,7 +110,7 @@ def parse_args():
         "--stride",
         dest="stride",
         required=False,
-        help="Stride for trajectory analysis , not recommended if the trajectory is partitioned",
+        help="Stride for trajectory analysis , default is 1 (no stride)",
         type=int,
         default=1,
     )
