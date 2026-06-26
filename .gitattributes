@@ -5,3 +5,5 @@
 *.gro filter=lfs diff=lfs merge=lfs -text
 *.top filter=lfs diff=lfs merge=lfs -text
 *.tpr filter=lfs diff=lfs merge=lfs -text
+GPCR_case/before_centering.html filter=lfs diff=lfs merge=lfs -text
+GPCR_case/after_centering.html filter=lfs diff=lfs merge=lfs -text
